@@ -19,5 +19,7 @@ include(dirname(__FILE__)."/../partials/header.php");
 include(dirname(__FILE__)."/../partials/menu.php");
 include(dirname(__FILE__).$central);
 var_dump($GLOBALS);
+echo "$GLOBALS["central"]";
+echo "$_COOKIE"
 include(dirname(__FILE__)."/../partials/footer.php");
 ?>
