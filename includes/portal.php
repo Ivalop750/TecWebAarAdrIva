@@ -19,6 +19,9 @@ if (isset($_REQUEST['action'])) $action = $_REQUEST["action"];
 else $action = "home";
 
 switch ($action) {
+    case "delete":
+        $central = "/deleteClient.php";
+        break;
     case "home":
 
         $central = "/../partials/centralForm.php";
