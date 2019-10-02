@@ -14,6 +14,9 @@
 			<a href="?action=listar">Listar</a>
 		</li>
 		<li>
+			<a href="?action=delete">Borrar</a>
+		</li>
+		<li>
 			<a href="../holaMundo.php">HolaMundo</a>
 		</li>
 	</ul>
