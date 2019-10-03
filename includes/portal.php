@@ -21,7 +21,7 @@ else $action = "home";
 switch ($action) {
     
     case "delete":
-        $central = "/...php";
+        $central = "/deleteClient.php";
         break;
     case "home":
 
