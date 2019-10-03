@@ -7,7 +7,7 @@ try{
     $a=consultar($pdo,$table);
     if (1>$a) {echo "InCorrecto1";return ;}
     var_dump($a);
-    borrar($pdo,$table,$a[count($a)-1]['5']);
+    borrar($pdo,$table,$a[count($a)-1]['client_id']);
 
 
 

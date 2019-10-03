@@ -15,7 +15,7 @@ try {
     echo count($a);
     if (1>$a) echo "InCorrecto1";
 	//unset ($pdo);
- 	} 
+} 
     catch (PDOException $e) {
     echo "Failed to get DB handle: " . $e->getMessage() . "\n";
     exit;
