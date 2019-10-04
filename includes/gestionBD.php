@@ -26,11 +26,11 @@ function consultar($pdo,$table) {
     return ($consult->fetchAll(PDO::FETCH_ASSOC)); 
   
 }
-function buscar($pdo,$table,$valor){
+function find($pdo,$table,$valor){
     $query = "SELECT     * FROM       $table WHERE client_id =$valor"; 
     $consult = $pdo->prepare($query);
     $a=$consult->execute(array());
-    if (1>$a){echo "Error en buscar";}
+    if (1>$a){echo "Error en find";}
     return ($consult->fetch(PDO::FETCH_ASSOC)); 
 }
 

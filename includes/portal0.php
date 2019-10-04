@@ -14,10 +14,17 @@
  * */
 
 //echo $_SERVER['DOCUMENT_ROOT']."/partials/footer.php";
+
 $central = "/../partials/centralForm.php";
 include(dirname(__FILE__)."/../partials/header.php");
 include(dirname(__FILE__)."/../partials/menu.php");
 include(dirname(__FILE__).$central);
 var_dump($GLOBALS);
 include(dirname(__FILE__)."/../partials/footer.php");
+echo "empiezan los prints \n\n\n";
+/*print_r($GLOBALS["_GET"]);*/
+
+print_r($_GET);
+
+
 ?>

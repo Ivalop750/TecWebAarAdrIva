@@ -1,6 +1,7 @@
 <?php
 include("./gestionBD.php");
 function handler($pdo,$table)
+
 {
     
     $rows=consultar($pdo,$table);
