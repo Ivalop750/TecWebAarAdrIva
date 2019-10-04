@@ -19,7 +19,6 @@ if (isset($_REQUEST['action'])) $action = $_REQUEST["action"];
 else $action = "home";
 
 switch ($action) {
-    
     case "delete":
         $central = "/deleteClient.php";
         break;
@@ -43,6 +42,12 @@ switch ($action) {
         break;
     case "listar":
         $central = "/listar.php";
+        break;
+    case "update":
+        $central = "/update.php";
+        break;
+    case "controlUpdate":
+        $central = "/controlUpdate.php";
         break;
     default:
         $data["error"] = "Accion No permitida";
