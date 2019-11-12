@@ -41,7 +41,7 @@
   if ( ! empty( $title ) )
   echo $args['before_title'] . $title . $args['after_title'];
   // Aquí es donde debemos introducir el código que queremos que se ejecute
-  echo 'Hola Mundo' ;
+  echo 'Esta tienda es 100% responsable con el medio ambiente' ;
   echo $args['after_widget'];
   }
 
