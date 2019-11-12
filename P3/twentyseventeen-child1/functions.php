@@ -51,7 +51,7 @@
   $title = $instance[ 'title' ];
   }
   else {
-  $title = __( 'Nombre de la tienda y dirección', 'my_widget_domain' );
+  $title = __( 'Titulo', 'my_widget_domain' );
   }
   // Formulario del backend
    ?>
