@@ -1,14 +1,16 @@
 <?php
-/*
-Plugin Name:  my_group1
-Plugin URI:   https://github.com/Ivalop750/TecWebAarAdrIva
-Description:  Register group of persons.
-Version:      20160911
-Author:       TecWebAarAdrIva
-Author URI:   https://github.com/Ivalop750/TecWebAarAdrIva
-License:      GPLv3
-License URI:  https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain:  wporg
+ /*
+Theme Name:   my_group1
+Theme URI:    http://example.com/my_group1/
+Description:  my_group1
+Author:       John Doe
+Author URI:   http://example.com
+Template:     my_group1
+Version:      1.0.2
+License:      GNU General Public License v2 or later
+License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+Tags:         one-column, two-columns, right-sidebar, flexible-header, accessibility-ready, custom-colors, custom-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready
+Text Domain:  my_group1
 */
 
 
