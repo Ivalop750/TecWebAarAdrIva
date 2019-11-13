@@ -1,14 +1,15 @@
 <?php
 /*
-Plugin Name: my_group1
-Description: Register group of persons.
-Author URI: lola L
-Author Email: dllido@uji.es
-Version: 1.0
-License: GPLv3
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Plugin Name:  my_group1
+Plugin URI:   https://github.com/Ivalop750/TecWebAarAdrIva
+Description:  Register group of persons.
+Version:      20160911
+Author:       TecWebAarAdrIva
+Author URI:   https://github.com/Ivalop750/TecWebAarAdrIva
+License:      GPLv3
+License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:  wporg
 */
-
 
 
 //Al activar el plugin quiero que se cree una tabla en la BD, que creará la función my_group_install.
