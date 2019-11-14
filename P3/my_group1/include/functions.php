@@ -19,17 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 
 
-
-
 //Funcion instalación plugin. Crea tabla
-function MP_CrearT($table){
+function MP_CrearT($tabla){
     
     $MP_pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD); 
-    $query="CREATE TABLE IF NOT EXISTS $table (person_id INT(11) NOT NULL AUTO_INCREMENT, nombre VARCHAR(100),  email VARCHAR(100),  foto_file VARCHAR(25), clienteMail VARCHAR(100),  PRIMARY KEY(person_id))";
+    $query="CREATE TABLE IF NOT EXISTS $tabla (person_id INT(11) NOT NULL AUTO_INCREMENT, nombre VARCHAR(100),  email VARCHAR(100),  foto_file VARCHAR(25), clienteMail VARCHAR(100),  PRIMARY KEY(person_id))";
     $consult = $MP_pdo->prepare($query);
     $consult->execute (array());
 }
-
 
 
 function MP_Register_Form($MP_user , $user_email)
@@ -66,10 +63,9 @@ function MP_Register_Form($MP_user , $user_email)
 
 function MP_my_datos()
 { 
-    global $user_ID , $user_email;
-    $table='A_GrupoCliente';
-    $MP_pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD); 
+    global $user_ID , $user_email,$table;
     
+    $MP_pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD); 
     wp_get_current_user();
     if ('' == $user_ID) {
                 //no user logged in
