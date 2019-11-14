@@ -1,4 +1,5 @@
 <?php
+include("./gestionBD.php");
 /**
  * * Descripción: Controlador principal
  * *
@@ -55,10 +56,15 @@ function MP_Register_Form($MP_user , $user_email)
         <input type="file" name="foto_file" class="item_requerid" size="20" maxlength="25" value="<?php print $MP_user["foto_file"] ?>"
         placeholder="nombre de la foto" />
         <br/>
+        <br/>
         
         <input type="submit" value="Enviar">
         <input type="reset" value="Deshacer">
     </form>
+    <table bgcolor="#8e969c">
+	        <td align="center"> <a  href='admin-post.php?action=my_datos&proceso=listar'>Listar</a> </td>
+	        <td align="center"> <a  href='admin-post.php?action=my_datos&proceso=registro'>Registro</a> </td>
+    </table>
 <?php
 }
 
@@ -67,21 +73,22 @@ function MP_Register_Form($MP_user , $user_email)
 //$_REQUEST['proceso'], o sea se activara al llamar a url semejantes a 
 //https://host/wp-admin/admin-post.php?action=my_datos&proceso=r 
 
-function guarda_foto($foto) {
 
-    $fotoURL="";
-    $IMAGENES_USUARIOS = '../fotos/';
-    if(array_key_exists('foto', $_FILES) && $_POST['email']) {
-        $fotoURL = $IMAGENES_USUARIOS.$_POST['userName']."_".$_FILES['foto']['name'];
-        if (move_uploaded_file($_FILES['foto']['tmp_name'], $fotoURL)) { 
-            echo "foto subida con éxito";
-        }
-    }
-
+function hook_css() {
+   ?>
+   	<style>
+       	.wp_head_example {
+           	background-color : #f1f1f1;
+       	}
+   	</style>
+   <?php
 }
 
 function MP_my_datos()
-{ 
+{
+    
+	add_action('wp_head', 'hook_css');
+
     global $user_ID , $user_email,$table;
     
     $MP_pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD); 
@@ -108,9 +115,19 @@ function MP_my_datos()
                 print ("No has rellenado el formulario correctamente");
                 return;
             }
-            guarda_foto($_REQUEST['foto_file']);
+            //guarda_foto($_REQUEST['foto_file']);
+            
+            $fotoURL="";
+            $IMAGENES_USUARIOS = '/public_html/Lab/P1/img';
+            if(array_key_exists('foto_file', $_FILES) && $_POST['email']) {
+                $fotoURL = $IMAGENES_USUARIOS.$_POST['userName']."_".$_FILES['foto_file']['name'];
+                if (move_uploaded_file($_FILES['foto_file']['tmp_name'], $fotoURL)) { 
+                    echo "foto subida con éxito";
+                }
+            }
+
             $query = "INSERT INTO $table (nombre, email, foto_file, clienteMail) VALUES (?,?,?,?)";         
-            $a=array($_REQUEST['userName'], $_REQUEST['email'], $_REQUEST['foto_file'], $_REQUEST['clienteMail'] );
+            $a=array($_REQUEST['userName'], $_REQUEST['email'], $fotoURL, $_REQUEST['clienteMail'] );
             //$pdo1 = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD); 
             $consult = $MP_pdo->prepare($query);
             $a=$consult->execute($a);
@@ -146,6 +163,10 @@ function MP_my_datos()
                 print "</table></div>";
             }
             else{echo "No existen valores";}
+            echo "<table bgcolor='#8e969c'>";
+            echo "<td align='center'> <a  href='admin-post.php?action=my_datos&proceso=listar'>Listar</a> </td>";
+            echo "<td align='center'> <a  href='admin-post.php?action=my_datos&proceso=registro'>Registro</a> </td>";
+            echo "</table>";
             break;
         default:
             print "Opción no correcta";
