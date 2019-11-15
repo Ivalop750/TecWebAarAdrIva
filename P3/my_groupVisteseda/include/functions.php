@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 
 //Funcion instalación plugin. Crea tabla
-function MP_CrearT($tabla){
+function MP_CrearTVisteseda($tabla){
     
     $MP_pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD); 
     $query="CREATE TABLE IF NOT EXISTS $tabla (person_id INT(11) NOT NULL AUTO_INCREMENT, nombre VARCHAR(100),  email VARCHAR(100),  foto_file VARCHAR(25), clienteMail VARCHAR(100),  PRIMARY KEY(person_id))";
@@ -30,11 +30,11 @@ function MP_CrearT($tabla){
 }
 
 
-function MP_Register_Form($MP_user , $user_email)
+function MP_Register_FormVisteseda($MP_user , $user_email)
 {//formulario registro amigos de $user_email
     ?>
     <h1>Gestión de Usuarios </h1>
-    <form class="fom_usuario" action="?action=my_datos&proceso=registrar" method="POST">
+    <form class="fom_usuario" action="?action=mis_datos&proceso=registrar" method="POST" enctype="multipart/form-data">
         <label for="clienteMail">Tu correo</label>
         <br/>
         <input type="text" name="clienteMail"  size="20" maxlength="25" value="<?php print $user_email?>"
@@ -53,17 +53,18 @@ function MP_Register_Form($MP_user , $user_email)
         <br/>
         <label for="foto_file">Fotografía</label>
         <br/>
-        <input type="file" name="foto_file" class="item_requerid" size="20" maxlength="25" value="<?php print $MP_user["foto_file"] ?>"
+        <input type="file" name="foto_file" class="item_requerid" value="<?php print $MP_user["foto_file"] ?>"
         placeholder="nombre de la foto" />
         <br/>
         <br/>
         
-        <input type="submit" value="Enviar">
-        <input type="reset" value="Deshacer">
+        <input class='botones menu-principal-container' type="submit" value="Enviar">
+        <input class='botones menu-principal-container' type="reset" value="Deshacer">
     </form>
-    <table bgcolor="#8e969c">
-	        <td align="center"> <a  href='admin-post.php?action=my_datos&proceso=listar'>Listar</a> </td>
-	        <td align="center"> <a  href='admin-post.php?action=my_datos&proceso=registro'>Registro</a> </td>
+    <br/>
+    <table>
+        <td align="center"> <a class='botones menu-principal-container' href='admin-post.php?action=mis_datos&proceso=registro'>Registro</a> </td>
+	    <td align="center"> <a class='botones menu-principal-container' href='admin-post.php?action=mis_datos&proceso=listar'>Listar</a> </td>
     </table>
 <?php
 }
@@ -84,7 +85,7 @@ function hook_css() {
    <?php
 }
 
-function MP_my_datos()
+function MP_mis_datos()
 {
     
 	add_action('wp_head', 'hook_css');
@@ -105,10 +106,12 @@ function MP_my_datos()
     get_header();
     echo '<div class="wrap">';
 
+        
+   
     switch ($_REQUEST['proceso']) {
         case "registro":
             $MP_user=null; //variable a rellenar cuando usamos modificar con este formulario
-            MP_Register_Form($MP_user,$user_email);
+            MP_Register_FormVisteseda($MP_user,$user_email);
             break;
         case "registrar":
             if (count($_REQUEST) < 4) {
@@ -116,26 +119,29 @@ function MP_my_datos()
                 return;
             }
             //guarda_foto($_REQUEST['foto_file']);
-            
             $fotoURL="";
-            $IMAGENES_USUARIOS = '/public_html/Lab/P1/img';
+            $IMAGENES_USUARIOS = '/storage/ssd1/545/10899545/public_html/Lab/P1/img/';
+            
             if(array_key_exists('foto_file', $_FILES) && $_POST['email']) {
                 $fotoURL = $IMAGENES_USUARIOS.$_POST['userName']."_".$_FILES['foto_file']['name'];
+                echo $fotoURL;
                 if (move_uploaded_file($_FILES['foto_file']['tmp_name'], $fotoURL)) { 
                     echo "foto subida con éxito";
                 }
             }
-
+           
             $query = "INSERT INTO $table (nombre, email, foto_file, clienteMail) VALUES (?,?,?,?)";         
-            $a=array($_REQUEST['userName'], $_REQUEST['email'], $fotoURL, $_REQUEST['clienteMail'] );
+            $a=array($_REQUEST['userName'], $_REQUEST['email'], $_POST['userName']."_".$_FILES['foto_file']['name'], $_REQUEST['clienteMail'] );
+            //var_dump($_FILES);
             //$pdo1 = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD); 
             $consult = $MP_pdo->prepare($query);
             $a=$consult->execute($a);
             if (1>$a) {echo "InCorrecto $query";}
-            else wp_redirect(admin_url( 'admin-post.php?action=my_datos&proceso=listar'));
+            else wp_redirect(admin_url( 'admin-post.php?action=mis_datos&proceso=listar'));
             break;
         case "listar":
             //Listado amigos o de todos si se es administrador.
+            
             $a=array();
             if (current_user_can('administrator')) {$query = "SELECT     * FROM       $table ";}
             else {$campo="clienteMail";
@@ -156,16 +162,22 @@ function MP_my_datos()
                 foreach ($rows as $row) {
                     print "<tr>";
                     foreach ($row as $key => $val) {
+                        if ($key=="foto_file" and $val!=null){
+                            echo "<td> <img src='/Lab/P1/img/$val'>", "</td>";
+                        }
+                        else{
                         echo "<td>", $val, "</td>";
+                        }
                     }
                     print "</tr>";
                 }
                 print "</table></div>";
             }
             else{echo "No existen valores";}
-            echo "<table bgcolor='#8e969c'>";
-            echo "<td align='center'> <a  href='admin-post.php?action=my_datos&proceso=listar'>Listar</a> </td>";
-            echo "<td align='center'> <a  href='admin-post.php?action=my_datos&proceso=registro'>Registro</a> </td>";
+            echo "<br/>";
+            echo "<table>";
+            echo "<td align='center'> <a class='botones menu-principal-container' href='admin-post.php?action=mis_datos&proceso=registro'>Registro</a> </td>";
+            echo "<td align='center'> <a class='botones menu-principal-container' href='admin-post.php?action=mis_datos&proceso=listar'>Listar</a> </td>";
             echo "</table>";
             break;
         default:
