@@ -25,3 +25,55 @@ Text Domain:  twentyseventeen-child1
 	-ms-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
 }
+.tamano-footer {
+    width:100%;
+    text-align:center;
+}
+
+.site-title{
+    margin-bottom: 10px;
+    font-size: 70px;
+    font-family: georgia;
+    border-radius: 10px;
+  border: 3px solid #b26695;
+}
+.site-description{
+    font-family: georgia;
+    font-size: 23px;
+    border-left: 7px solid whitesmoke;
+    border-radius: 5px 20px 5px;
+  background-color: #b26695;
+    color: green;
+    text-align: center;
+    
+}
+body{
+    font-family: sans-serif;
+}
+.menu-principal-container{
+    font-family: georgia;
+    font-size: 14px;
+    background-color: lightpink;
+    border-radius: 5px 20px 5px;
+}
+a:hover{
+    background-color: #b26695;
+}
+
+
+.color-footer{
+    background: #ffb6d8;
+    text-align: center;
+    border-radius: 5px 20px 5px;
+    border-width: 100px;
+
+}
+
+.botones {
+	font-weight: bold;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
