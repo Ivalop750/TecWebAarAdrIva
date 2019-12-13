@@ -43,7 +43,7 @@ function MP_Register_FormVisteseda($MP_user , $user_email)
         <legend>Datos básicos</legend>
         <label for="nombre">Nombre</label>
         <br/>
-        <input type="text" name="userName" class="item_requerid" size="20" maxlength="25" value="<?php print $MP_user["userName"] ?>"
+        <input type="text" name="userName" class="item_requerid" size="20" maxlength="25" value="<?php print $MP_user["nombre"] ?>"
         placeholder="Miguel Cervantes" />
         <br/>
         <label for="email">Email</label>
@@ -53,11 +53,143 @@ function MP_Register_FormVisteseda($MP_user , $user_email)
         <br/>
         <label for="foto_file">Fotografía</label>
         <br/>
-        <input type="file" name="foto_file" class="item_requerid" value="<?php print $MP_user["foto_file"] ?>"
+       
+        <br/>
+        <input type="file" id="foto" name="foto_file" class="item_requerid" value="<?php print $MP_user["foto_file"] ?>"
         placeholder="nombre de la foto" />
         <br/>
         <br/>
-        
+        <p>
+            <img id="img_foto" src="" width=100 height=100> 
+        </p>
+         <script type="text/javascript" defer charset="utf-8">
+
+            function mostrarFoto(file, imagen) {
+    	        //carga la imagen de file en el elemento src imagen
+                var reader = new FileReader();
+                reader.addEventListener("load", function () {
+                imagen.src = reader.result;
+                });
+                reader.readAsDataURL(file);
+            }
+    
+            
+            function ready() {
+                var fichero = document.querySelector("#foto");
+                var imagen  = document.querySelector("#img_foto");
+    	        //escuchamos evento selección nuevo fichero.
+                fichero.addEventListener("change", function (event) {
+                    
+                    if(!/.(jpg|jpeg)$/i.test(fichero.value)){
+                        alert("Comprueba la extensión de la imagen, solo puede ser .jpg");
+                        this.value=' ';
+                        this.files[0]=' ';
+                    }
+                    var tam=this.files[0].size
+                    var tamKB=tam/1024;
+                    if(tamKB > 400){
+                        alert("Las imagen es demasiado grande, supera los 400 KB");
+                        this.value=' ';
+                        this.files[0]=' ';
+                    }
+                    else{
+                        mostrarFoto(this.files[0], imagen);
+                    }
+                    
+                });
+            }
+    
+            ready();
+
+        </script>
+
+        <br/>
+        <br/>
+        <input class='botones menu-principal-container' type="submit" value="Enviar">
+        <input class='botones menu-principal-container' type="reset" value="Deshacer">
+    </form>
+    <br/>
+    <table>
+        <td align="center"> <a class='botones menu-principal-container' href='admin-post.php?action=mis_datos&proceso=registro'>Registro</a> </td>
+	    <td align="center"> <a class='botones menu-principal-container' href='admin-post.php?action=mis_datos&proceso=listar'>Listar</a> </td>
+    </table>
+<?php
+}
+
+function MP_Modificar_FormVisteseda($MP_user , $user_email)
+{//formulario de modificar amigos de $user_email
+    ?>
+    <h1>Modificación de Usuarios </h1>
+    <form class="fom_usuario" action="?action=mis_datos&proceso=update&person_id=<?php print $_GET['person_id'] ?> " method="POST" enctype="multipart/form-data">
+        <label for="clienteMail">Tu correo</label>
+        <br/>
+        <input type="text" name="clienteMail"  size="20" maxlength="25" value="<?php print $user_email?>"
+        readonly />
+        <br/>
+        <legend>Datos básicos</legend>
+        <label for="nombre">Nombre</label>
+        <br/>
+        <input type="text" name="userName" class="item_requerid" size="20" maxlength="25" value="<?php print $MP_user["nombre"] ?>"
+        placeholder="Miguel Cervantes" />
+        <br/>
+        <label for="email">Email</label>
+        <br/>
+        <input type="text" name="email" class="item_requerid" size="20" maxlength="25" value="<?php print $MP_user["email"] ?>"
+        placeholder="kiko@ic.es" />
+        <br/>
+        <label for="foto_file">Fotografía</label>
+        <br/>
+       
+        <br/>
+        <input type="file" id="foto" name="foto_file" class="item_requerid" value="<?php print $MP_user["foto_file"] ?>"
+        placeholder="nombre de la foto" />
+        <br/>
+        <br/>
+        <p>
+            <img id="img_foto" src="/Lab/P1/img/<?php print $MP_user['foto_file'] ?>" width="100" height="100"> 
+        </p>
+         <script type="text/javascript" defer charset="utf-8">
+
+            function mostrarFoto(file, imagen) {
+    	        //carga la imagen de file en el elemento src imagen
+                var reader = new FileReader();
+                reader.addEventListener("load", function () {
+                imagen.src = reader.result;
+                });
+                reader.readAsDataURL(file);
+            }
+    
+            function ready() {
+                var fichero = document.querySelector("#foto");
+                var imagen  = document.querySelector("#img_foto");
+    	        //escuchamos evento selección nuevo fichero.
+                fichero.addEventListener("change", function (event) {
+                    
+                    if(!/.(jpg|jpeg)$/i.test(fichero.value)){
+                        alert("Comprueba la extensión de la imagen, solo puede ser .jpg");
+                        this.value=' ';
+                        this.files[0]=' ';
+                    }
+                    var tam=this.files[0].size
+                    var tamKB=tam/1024;
+                    if(tamKB > 400){
+                        alert("Las imagen es demasiado grande, supera los 400 KB");
+                        this.value=' ';
+                        this.files[0]=' ';
+                    }
+                    else{
+                        mostrarFoto(this.files[0], imagen);
+                    }
+                    
+                });
+                }
+
+            ready();
+
+        </script>
+
+        <br/>
+        <br/>
         <input class='botones menu-principal-container' type="submit" value="Enviar">
         <input class='botones menu-principal-container' type="reset" value="Deshacer">
     </form>
@@ -109,6 +241,47 @@ function MP_mis_datos()
         
    
     switch ($_REQUEST['proceso']) {
+        case "modificar":
+            $persona= $_GET['person_id'];
+            $query = "SELECT     * FROM       $table WHERE person_id =$persona"; 
+            $consult = $MP_pdo->prepare($query);
+            $a=$consult->execute(array());
+            if (1>$a){echo "Error en buscar person_id";}
+            $MP_user=$consult->fetchAll(PDO::FETCH_ASSOC);
+            //var_dump($MP_user[0]);
+            MP_Modificar_FormVisteseda($MP_user[0], $user_email);
+            break;
+            
+        case "update":
+            if (count($_REQUEST) < 5) {
+                $data["error"] = "No has rellenado el formulario correctamente";
+                return;
+            }
+            $fotoURL="";
+            $IMAGENES_USUARIOS = '/storage/ssd1/545/10899545/public_html/Lab/P1/img/';
+            
+            if(array_key_exists('foto_file', $_FILES) && $_POST['email']) {
+                $fotoURL = $IMAGENES_USUARIOS.$_POST['userName']."_".$_FILES['foto_file']['name'];
+                echo $fotoURL;
+                if (move_uploaded_file($_FILES['foto_file']['tmp_name'], $fotoURL)) { 
+                    echo "foto subida con éxito";
+                }
+            }
+            $query = "UPDATE $table SET nombre=?, email=?, foto_file=? WHERE person_id=?";
+            //var_dump($_GET);
+            try { 
+                
+                $a=array($_REQUEST['userName'],$_REQUEST['email'], $_POST['userName']."_".$_FILES['foto_file']['name'], intval ($_GET['person_id']) );
+                //var_dump($query);
+                //var_dump($a);
+                $consult = $MP_pdo->prepare($query);
+                $a=$consult->execute($a);
+                if (1>$a)echo "InCorrecto";
+                 else wp_redirect(admin_url( 'admin-post.php?action=mis_datos&proceso=listar'));
+    
+            } catch (PDOExeption $e) {
+                echo ($e->getMessage());
+            }
         case "registro":
             $MP_user=null; //variable a rellenar cuando usamos modificar con este formulario
             MP_Register_FormVisteseda($MP_user,$user_email);
@@ -143,9 +316,9 @@ function MP_mis_datos()
             //Listado amigos o de todos si se es administrador.
             
             $a=array();
-            if (current_user_can('administrator')) {$query = "SELECT     * FROM       $table ";}
+            if (current_user_can('administrator')) {$query = "SELECT   *FROM    $table";}
             else {$campo="clienteMail";
-                $query = "SELECT     * FROM  $table      WHERE $campo =?";
+                $query = "SELECT   * FROM  $table      WHERE $campo =?";
                 $a=array( $user_email);
  
             } 
@@ -154,14 +327,17 @@ function MP_mis_datos()
             $a=$consult->execute($a);
             $rows=$consult->fetchAll(PDO::FETCH_ASSOC);
             if (is_array($rows)) {/* Creamos un listado como una tabla HTML*/
-                print '<div><table><th>';
+                print '<div><table><tr>';
                 foreach ( array_keys($rows[0])as $key) {
                     echo "<td>", $key,"</td>";
                 }
-                print "</th>";
+                print "</tr>";
                 foreach ($rows as $row) {
                     print "<tr>";
                     foreach ($row as $key => $val) {
+                        if($key=="person_id"){
+                            $persona=$val;
+                        }
                         if ($key=="foto_file" and $val!=null){
                             echo "<td> <img src='/Lab/P1/img/$val'>", "</td>";
                         }
@@ -169,7 +345,9 @@ function MP_mis_datos()
                         echo "<td>", $val, "</td>";
                         }
                     }
+                    echo"<td align='center'> <a class='botones menu-principal-container' href='admin-post.php?action=mis_datos&proceso=modificar&person_id=", $persona ,"'>Modificar</a> </td>";
                     print "</tr>";
+                   
                 }
                 print "</table></div>";
             }
