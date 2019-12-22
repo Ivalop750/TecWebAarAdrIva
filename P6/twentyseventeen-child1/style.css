@@ -1,0 +1,82 @@
+ /*
+Theme Name:   Twenty Seventeen Child 1
+Theme URI:    http://example.com/twentyseventeen_child1/
+Description:  Twenty Seventeen Child 1 Theme
+Author:       John Doe
+Author URI:   http://example.com
+Template:     twentyseventeen
+Version:      1.0.2
+License:      GNU General Public License v2 or later
+License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+Tags:         one-column, two-columns, right-sidebar, flexible-header, accessibility-ready, custom-colors, custom-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready
+Text Domain:  twentyseventeen-child1
+*/
+
+/* =Aquí empieza la personalización de tu tema
+-------------------------------------------------------------- */
+
+@import url("../twentyseventeen/style.css");
+.widget_rss span.rss-date {
+   color: green;
+ }
+ html {
+	font-family: accent;
+	line-height: 1.15;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+.tamano-footer {
+    width:100%;
+    text-align:center;
+}
+
+.site-title{
+    margin-bottom: 10px;
+    font-size: 70px;
+    font-family: georgia;
+    border-radius: 10px;
+  border: 3px solid #b26695;
+}
+.site-description{
+    font-family: georgia;
+    font-size: 23px;
+    border-left: 7px solid whitesmoke;
+    border-radius: 5px 20px 5px;
+    background-color: #b26695;
+    color: green;
+    text-align: center;
+    
+}
+body{
+    font-family: sans-serif;
+}
+.menu-principal-container{
+    font-family: georgia;
+    font-size: 14px;
+    background-color: lightpink;
+    border-radius: 5px 20px 5px;
+}
+.menu-principal-container:active{
+	background-color: #359dfa;
+}
+a:hover{
+    background-color: #b26695;
+}
+
+
+.color-footer{
+    background: #ffb6d8;
+    text-align: center;
+    border-radius: 5px 20px 5px;
+    border-width: 100px;
+
+}
+
+.botones {
+  font-weight: bold;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
