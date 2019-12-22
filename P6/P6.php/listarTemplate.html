@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TEMPLATE</title>
+<style type="text/css">
+    @import url("../twentyseventeen/style.css");
+.widget_rss span.rss-date {
+   color: green;
+ }
+ html {
+	font-family: accent;
+	line-height: 1.15;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+.tamano-footer {
+    width:100%;
+    text-align:center;
+}
+
+.site-title{
+    margin-bottom: 10px;
+    font-size: 70px;
+    font-family: georgia;
+    border-radius: 10px;
+  border: 3px solid #b26695;
+}
+.site-description{
+    font-family: georgia;
+    font-size: 23px;
+    border-left: 7px solid whitesmoke;
+    border-radius: 5px 20px 5px;
+    background-color: #b26695;
+    color: green;
+    text-align: center;
+    
+}
+body{
+    font-family: sans-serif;
+}
+.menu-principal-container{
+    font-family: georgia;
+    font-size: 14px;
+    background-color: lightpink;
+    border-radius: 5px 20px 5px;
+}
+.menu-principal-container:active{
+	background-color: #359dfa;
+}
+a:hover{
+    background-color: #b26695;
+}
+
+
+.color-footer{
+    background: #ffb6d8;
+    text-align: center;
+    border-radius: 5px 20px 5px;
+    border-width: 100px;
+
+}
+
+.botones {
+  font-weight: bold;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+
+</style>
+
+<script type="text/javascript">
+	var respuesta={"plantilla":"listarTemplate.html","datos":[{"person_id":"1","nombre":"Aaron Caballero","email":"al341821@uji.es","foto_file":null,"clienteMail":"tecwebaaradriva@gmail.com"},{"person_id":"2","nombre":"Ivan Muñoz","email":"al341854@uji.es","foto_file":null,"clienteMail":"tecwebaaradriva@gmail.com"},{"person_id":"3","nombre":"José Peidro","email":"al341820@uji.es","foto_file":null,"clienteMail":"al341822@uji.es"},{"person_id":"4","nombre":"Diego Andrés Cano","email":"al342376@uji.es","foto_file":null,"clienteMail":"al341822@uji.es"},{"person_id":"30","nombre":"iee","email":"iee@gmail.com","foto_file":"iee_holaaa.png","clienteMail":"tecwebaaradriva@gmail.com"},{"person_id":"31","nombre":"juanito","email":"iee@gmail.com","foto_file":"juanito_holaaa.png","clienteMail":"tecwebaaradriva@gmail.com"},{"person_id":"32","nombre":"juanito","email":"iee@gmail.com","foto_file":"juanito_holaaa.png","clienteMail":"tecwebaaradriva@gmail.com"},{"person_id":"33","nombre":"IEEEEEEE","email":"hector@mail.es","foto_file":"IEEEEEEE_shutterstock_101783026.jpg","clienteMail":"al341821@uji.es"},{"person_id":"34","nombre":"HOLAAAAAAAAAAAAA","email":"AL3418@uji","foto_file":"HOLAAAAAAAAAAAAA_shutterstock_101783026.jpg","clienteMail":"tecwebaaradriva@gmail.com"},{"person_id":"35","nombre":"","email":"","foto_file":"_","clienteMail":"tecwebaaradriva@gmail.com"},{"person_id":"36","nombre":"","email":"","foto_file":"_joker.jpg","clienteMail":"tecwebaaradriva@gmail.com"},{"person_id":"37","nombre":"juan","email":"ieee","foto_file":"juan_joker.jpg","clienteMail":"tecwebaaradriva@gmail.com"},{"person_id":"38","nombre":"amigo","email":"amigo@uji.es","foto_file":"amigo_Logo-ACCE.gif","clienteMail":"al341822@uji.es"},{"person_id":"39","nombre":"hola","email":"holaaa","foto_file":null,"clienteMail":"adrics1997@gmail.com"},{"person_id":"40","nombre":"segundoAmigo","email":"segundon@uji.es","foto_file":"segundoAmigo_Logo-ACCE.gif","clienteMail":"adrics1997@gmail.com"},{"person_id":"41","nombre":"Adios","email":"Hola@uji.es","foto_file":"Adios_1471965781_732292_1471970999_noticia_normal.jpg","clienteMail":"al341822@uji.es"},{"person_id":"42","nombre":"Beatriz","email":"bea@uji.es","foto_file":"Beatriz_1471965781_732292_1471970999_noticia_normal.jpg","clienteMail":"tecwebaaradriva@gmail.com"},{"person_id":"43","nombre":"JUANLUUUU","email":"juanluu@uji.es","foto_file":"JUANLUUUU_unicornio.jpg","clienteMail":"tecwebaaradriva@gmail.com"}]};
+	    
+		alert (respuesta.plantilla);
+		var datos=respuesta.datos;
+		
+document.addEventListener("DOMContentLoaded", function () {
+    // Test to see if the browser supports the HTML template element by checking
+    // for the presence of the template element's content attribute.
+if (document.querySelector('template').content) {
+												
+        // Instantiate the table with the existing HTML tbody and the row with the template
+		var t = document.querySelector('#productrow');
+		var tb = document.getElementsByTagName("tbody");
+		var clone;
+        img= t.content.querySelectorAll("img");
+        
+        td = t.content.querySelectorAll("td");
+		for  (var i = 0; i < datos.length; i++){
+			td[0].textContent =datos[i].person_id;
+            td[1].textContent = datos[i].nombre;
+            td[2].textContent = datos[i].email;
+            img[0].src = "/Lab/P1/img/"+ datos[i].foto_file;
+            td[4].textContent = datos[i].clienteMail;
+            
+            clone = document.importNode(t.content, true);
+            tb[0].appendChild(clone);
+        
+}}});
+</script>
+</head>
+    <body>
+        <p><a class="botones" href="jsonTemplate.php"> Listar usuarios </a></p>
+        <table id="producttable" align='center'>
+            <thead>
+                <tr>
+                    <td>person_id</td>
+                    <td>nombre</td>
+                    <td>email</td>
+                    <td>foto_file</td>
+                    <td>clienteMail</td>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+        
+        <template id="productrow">
+            <tr>
+                <td class="record"></td>
+                <td></td>
+                <td></td>
+                <td><img src="" width="100" height="100"></td>
+                <td></td>
+                <td align='center'> <a class='botones menu-principal-container' href='admin-post.php?=mis_datos&proceso=modificar&person_id=", $persona ,"'>Modificar</a> </td>
+            </tr>
+        </template>
+    </body>
+</html>
